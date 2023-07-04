@@ -1,0 +1,29 @@
+---
+- name: Test playbook for looping
+  hosts: localhost
+ 
+  tasks:
+ 
+    - name: Iteration through a list
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop:
+        - test1
+        - test2
+ 
+    - name: Iteration through a list of dictionaries
+      ansible.builtin.debug:
+        msg: "{{ item.first_id }} and {{ item.second_id }}"
+      loop:
+        - { first_id: test1, second_id: secret1 }
+        - { first_id: test2, second_id: secret2 }
+ 
+    - name: Iteration through a dictionary
+      ansible.builtin.debug:
+        msg: "{{ item.key }} - {{ item.value }}"
+      loop: "{{ users | dict2items }}"
+      vars:
+        users:
+          user1: tamas
+          user2: tom
+
